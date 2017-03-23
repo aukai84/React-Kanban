@@ -6,39 +6,20 @@ router.get('/', (req, res) => {
     res.json('home page');
 })
 
-router.get('/queue', ({body: {status}}, res) => {
-    Card.findAll({
-        where: {
-            status: "queue"
-        }
-    })
+router.get('/all', (req, res) => {
+    Card.findAll()
     .then(cards => {res.json(cards)})
     .catch(error => {res.json({"error": "error message"})})
 })
 
-router.get('/in-progress', ({body: {status}}, res) => {
-    Card.findAll({
-        where: {
-            status: "in-progress"
-        }
-    })
-    .then(cards => {res.json(cards)})
-    .catch(error => {res.json({"error": "error message"})})
-})
-
-router.get('/done', ({body: {status}}, res) => {
-    Card.findAll({
-        where: {
-            status: "done"
-        }
-    })
-    .then(cards => {res.json(cards)})
-    .catch(error => {res.json({"error": "error message"})})
-})
-
-router.put('/status/:id', ({body: {status}}, res) => {
+router.put('/:status/:id', (req, res) => {
+    console.log(req.params.status)
     Card.update({
-        status: req.params.id
+        status: req.params.status
+    }, {
+        where: {
+            id: req.params.id
+        }
     })
     .then(card => {res.json(card)})
     .catch(error => {res.json({"error": "error message"})})
@@ -54,6 +35,28 @@ router.post('/new', ({body: {title, priority, created_by, assigned_to}}, res) =>
     })
     .then(card => {res.json(card)})
     //need to send error messages with connect flash
+    .catch(error => {res.json({"error": "error message"})})
+})
+
+router.put('/edit/:id', ({body: {title, priority, assigned_to}}, res) => {
+    Card.update({
+        title,
+        priority,
+        assigned_to
+    }, {
+        where: {
+            id: req.params.id
+        }
+    })
+})
+
+router.delete('/delete/:id', (req, res) => {
+    Card.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(result => {res.json({"message": "deleted card"})})
     .catch(error => {res.json({"error": "error message"})})
 })
 
