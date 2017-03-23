@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import QueueCard from './QueueCard.js';
 
 class QueueDisplay extends Component {
 
@@ -11,15 +12,7 @@ class QueueDisplay extends Component {
             <div id="queue-container">
                 <h2>QUEUE</h2>
                     {this.props.cards.map(card => {
-                        return <div className="queue-cards">
-                            <p>{card.title}</p>
-                            <p>Priority: {card.priority}</p>
-                            <p>Assigned by: {card.created_by}</p>
-                            <p>{card.assigned_to}</p>
-                            <form onSubmit={this.props.updateStatus(`http://localhost:9000/api/kanban/in-progress/${card.id}`)}>
-                                <input type='submit' value="begin task"/>
-                            </form>
-                        </div>
+                        return <QueueCard card={card} updateStatus={this.props.updateStatus}/>
                     })}
             </div>
         )

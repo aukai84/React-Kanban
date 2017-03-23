@@ -31,12 +31,12 @@ class App extends Component {
         this.grabAllCards();
     }
 
-    updateStatus(endPoint){
+    updateStatus = (endPoint) => {
         console.log(endPoint)
         requestHelper('PUT', endPoint)
         .then(result => {
-            console.log(result)
-
+            console.log("running function")
+            this.grabAllCards();
         })
     }
 
