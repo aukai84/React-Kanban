@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import QueueDisplay from './QueueDisplay';
 import ProgressDisplay from './ProgressDisplay';
-// import DoneDisplay from './DoneDisplay';
+import DoneDisplay from './DoneDisplay';
+import CreateCardForm from './CreateCard';
 import {requestHelper} from '../../lib/modules';
 import logo from '../../logo.svg';
 import './styles.css';
@@ -32,10 +33,8 @@ class App extends Component {
     }
 
     updateStatus = (endPoint) => {
-        console.log(endPoint)
         requestHelper('PUT', endPoint)
         .then(result => {
-            console.log("running function")
             this.grabAllCards();
         })
     }
@@ -46,8 +45,12 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-          <QueueDisplay cards={this.state.queueCards} updateStatus={this.updateStatus}/>
-          <ProgressDisplay cards={this.state.inProgressCards} status={this.updateStatus}/>
+        <div className="component-container">
+          <QueueDisplay className="queue-display" cards={this.state.queueCards} updateStatus={this.updateStatus}/>
+          <ProgressDisplay className="progress-display" cards={this.state.inProgressCards} updateStatus={this.updateStatus}/>
+          <DoneDisplay className="done-display" cards={this.state.doneCards} updateStatus={this.updateStatus}/>
+          <CreateCardForm grabAllCards={this.grabAllCards}/>
+        </div>
       </div>
     );
   }
