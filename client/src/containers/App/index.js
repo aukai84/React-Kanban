@@ -11,9 +11,9 @@ import {addCard} from '../actions';
 import {updateStatus} from '../actions';
 console.log(updateStatus)
 import {connect} from 'react-redux';
-import {createStore} from 'redux';
-import cards from '../reducers';
-let store = createStore(cards);
+// import {createStore} from 'redux';
+// import cards from '../reducers';
+// let store = createStore(cards);
 
 class App extends Component {
 
@@ -38,24 +38,22 @@ class App extends Component {
     updateStatus = (endPoint) => {
         requestHelper('PUT', endPoint)
         .then(card => {
-            console.log(card)
             this.props.onUpdateStatus(card.id, card.status)
         })
     }
 
 
   render() {
-    console.log("card store ", this.props.cards)
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
+        <CreateCardForm onAddCard={this.props.onAddCard}/>
         <div className="component-container">
           <QueueDisplay className="queue-display" cards={this.props.cards.filter(card=>{return card.status === 'queue'})} updateStatus={this.updateStatus}/>
           <ProgressDisplay className="progress-display" cards={this.props.cards.filter(card=>{return card.status === 'in-progress'})} updateStatus={this.updateStatus}/>
           <DoneDisplay className="done-display" cards={this.props.cards.filter(card=>{return card.status === "done"})} updateStatus={this.updateStatus}/>
-          <CreateCardForm onAddCard={this.props.onAddCard}/>
         </div>
       </div>
     );

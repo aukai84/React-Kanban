@@ -9,6 +9,10 @@ class QueueCard extends Component {
         this.props.updateStatus(`http://localhost:9000/api/kanban/in-progress/${this.props.card.id}`);
     }
 
+    changeToDone = () => {
+        this.props.updateStatus(`http://localhost:9000/api/kanban/done/${this.props.card.id}`);
+    }
+
     render(){
         return (
             <div className="queue-cards">
@@ -17,6 +21,7 @@ class QueueCard extends Component {
                 <p>Assigned By: {this.props.card.created_by}</p>
                 <p>Assigned To:: {this.props.card.assigned_to}</p>
                 <button onClick={this.changeToProgress}>change to progress</button>
+                <button onClick={this.changeToDone}>change to done</button>
             </div>
         )
     }

@@ -23,6 +23,18 @@
   to { transform: rotate(360deg); }
 }
 
+#queue-container {
+    width: 30%;
+}
+
+#progress-container {
+    width: 30%;
+}
+
+#done-container {
+    width: 30%;
+}
+
 .component-container {
     display: flex;
     flex-flow: row;
@@ -32,5 +44,19 @@
     display:flex;
     border-style: solid;
     border-color: red;
+    flex-flow: column;
+}
+
+.progress-cards {
+    display:flex;
+    border-style: solid;
+    border-color: blue;
+    flex-flow: column;
+}
+
+.done-cards {
+    display:flex;
+    border-style: solid;
+    border-color: white;
     flex-flow: column;
 }
