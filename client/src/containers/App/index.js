@@ -8,6 +8,8 @@ import logo from '../../logo.svg';
 import './styles.css';
 
 import {addCard} from '../actions';
+import {updateStatus} from '../actions';
+console.log(updateStatus)
 import {connect} from 'react-redux';
 import {createStore} from 'redux';
 import cards from '../reducers';
@@ -17,27 +19,14 @@ class App extends Component {
 
     constructor(){
         super();
-        this.state ={
-            queueCards: [],
-            inProgressCards: [],
-            doneCards: []
-        }
+
     }
 
     grabAllCards = () => {
        requestHelper('GET', 'http://localhost:9000/api/kanban/all')
        .then(cards => {
-        console.log(cards)
-        console.log(this.props.onAddCard)
-            // this.setState({
-            //     queueCards: cards.filter(card => {return card.status === "queue"}),
-            //     inProgressCards: cards.filter(card => {return card.status === "in-progress"}),
-            //     doneCards: cards.filter(card => {return card.status === "done"})
-            // })
-            cards.forEach(card => {
-                console.log(card)
-                console.log(this.props.onAddCard)
-                this.props.onAddCard(card.title, card.priority, card.status, card.created_by, card.assigned_to);
+            cards.map(card => {
+                this.props.onAddCard(card.id, card.title, card.priority, card.status, card.created_by, card.assigned_to);
             })
        })
     }
@@ -48,23 +37,25 @@ class App extends Component {
 
     updateStatus = (endPoint) => {
         requestHelper('PUT', endPoint)
-        .then(result => {
-            this.grabAllCards();
+        .then(card => {
+            console.log(card)
+            this.props.onUpdateStatus(card.id, card.status)
         })
     }
 
+
   render() {
-    console.log(this.props)
+    console.log("card store ", this.props.cards)
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <div className="component-container">
-          <QueueDisplay className="queue-display" cards={this.state.queueCards} updateStatus={this.updateStatus}/>
-          <ProgressDisplay className="progress-display" cards={this.state.inProgressCards} updateStatus={this.updateStatus}/>
-          <DoneDisplay className="done-display" cards={this.state.doneCards} updateStatus={this.updateStatus}/>
-          <CreateCardForm grabAllCards={this.grabAllCards}/>
+          <QueueDisplay className="queue-display" cards={this.props.cards.filter(card=>{return card.status === 'queue'})} updateStatus={this.updateStatus}/>
+          <ProgressDisplay className="progress-display" cards={this.props.cards.filter(card=>{return card.status === 'in-progress'})} updateStatus={this.updateStatus}/>
+          <DoneDisplay className="done-display" cards={this.props.cards.filter(card=>{return card.status === "done"})} updateStatus={this.updateStatus}/>
+          <CreateCardForm onAddCard={this.props.onAddCard}/>
         </div>
       </div>
     );
@@ -79,8 +70,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddCard: (title, priority, status, created_by, assigned_to) => {
-            dispatch(addCard(title, priority, status, created_by, assigned_to));
+        onAddCard: (id, title, priority, status, created_by, assigned_to) => {
+            dispatch(addCard(id, title, priority, status, created_by, assigned_to));
+        },
+        onUpdateStatus: (id, status) => {
+            dispatch(updateStatus(id, status));
         }
     }
 }

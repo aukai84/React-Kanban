@@ -15,15 +15,14 @@ class CreateCardForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state)
         postRequestHelper({
             title: this.state.title,
-            priorty: this.state.priority,
+            priority: this.state.priority,
             created_by: this.state.created_by,
             assigned_to: this.state.assigned_to
         })
-        .then(result => {
-            this.props.grabAllCards();
+        .then(card => {
+            this.props.onAddCard(card.id,card.title,card.priority,card.status,card.created_by,card.assigned_to)
         })
     }
 

@@ -5,8 +5,8 @@ import './index.css';
 
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import books from './containers/reducers'
-let store = createStore(books);
+import cards from './containers/reducers'
+let store = createStore(cards);
 
 ReactDOM.render(
 <Provider store={store}>

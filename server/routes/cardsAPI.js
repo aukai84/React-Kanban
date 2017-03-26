@@ -21,7 +21,9 @@ router.put('/:status/:id', (req, res) => {
             id: req.params.id
         }
     })
-    .then(card => {res.json(card)})
+    .then(card => {
+        res.json({status: req.params.status, id: parseInt(req.params.id)})
+    })
     .catch(error => {res.json({"error": "error message"})})
 })
 
@@ -33,7 +35,7 @@ router.post('/new', ({body: {title, priority, created_by, assigned_to}}, res) =>
         created_by,
         assigned_to
     })
-    .then(card => {res.json(card)})
+    .then(result => {res.json(result)})
     //need to send error messages with connect flash
     .catch(error => {res.json({"error": "error message"})})
 })
