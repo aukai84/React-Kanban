@@ -21,7 +21,7 @@ function cards(state = initialState, action) {
                 ]
             });
         case UPDATE_STATUS:
-            let newCards = state.cards.map(card => {
+            let cardsAfterStatus = state.cards.map(card => {
                 if(card.id === action.id){
                     card.status = action.status;
                     return card;
@@ -31,16 +31,16 @@ function cards(state = initialState, action) {
             })
             return Object.assign({}, state, {
                 cards: [
-                    ...newCards
+                    ...cardsAfterStatus
                 ]
             });
         case DELETE_CARD:
-            let updatedCards = state.cards.filter(card => {
+            let cardsAfterDelete = state.cards.filter(card => {
                 return card.id != action.id
             })
             return Object.assign({}, state, {
                 cards: [
-                    ...updatedCards
+                    ...cardsAfterDelete
                 ]
             });
             default:

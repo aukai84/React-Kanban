@@ -72,8 +72,8 @@ class App extends Component {
         <CreateCardForm onAddCard={this.props.onAddCard}/>
         <div className="component-container">
           <QueueDisplay className="queue-display" cards={this.filterQueue()} updateStatus={this.updateStatus} deleteCard={this.deleteCard}/>
-          <ProgressDisplay className="progress-display" cards={this.filterProgress()} updateStatus={this.updateStatus}/>
-          <DoneDisplay className="done-display" cards={this.filterDone()} updateStatus={this.updateStatus}/>
+          <ProgressDisplay className="progress-display" cards={this.filterProgress()} updateStatus={this.updateStatus} deleteCard={this.deleteCard}/>
+          <DoneDisplay className="done-display" cards={this.filterDone()} updateStatus={this.updateStatus} deleteCard={this.deleteCard}/>
         </div>
       </div>
     );
