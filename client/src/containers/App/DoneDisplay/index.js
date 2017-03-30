@@ -13,7 +13,7 @@ class DoneDisplay extends Component {
             <div id="done-container">
                 <h2>Done</h2>
                     {this.props.cards.map(card => {
-                        return <DoneCard card={card} updateStatus={this.props.updateStatus}/>
+                        return <DoneCard card={card} updateStatus={this.props.updateStatus} deleteCard={this.props.deleteCard}/>
                     })}
             </div>
         )

@@ -10,6 +10,9 @@ class DoneCard extends Component {
     changeToProgress = () => {
         this.props.updateStatus(`http://localhost:9000/api/kanban/in-progress/${this.props.card.id}`)
     }
+    deleteTask = () => {
+        this.props.deleteCard(`http://localhost:9000/api/kanban/delete/${this.props.card.id}`)
+    }
 
     render(){
         return (
@@ -20,6 +23,7 @@ class DoneCard extends Component {
                 <p>Assigned To:: {this.props.card.assigned_to}</p>
                 <button onClick={this.changeToQueue}>move to queue</button>
                 <button onClick={this.changeToProgress}>move to in progress</button>
+                <button onClick={this.deleteTask}>DELETE</button>
             </div>
         )
     }
