@@ -12,7 +12,7 @@ class QueueDisplay extends Component {
             <div id="queue-container">
                 <h2>QUEUE</h2>
                     {this.props.cards.map(card => {
-                        return <QueueCard card={card} updateStatus={this.props.updateStatus}/>
+                        return <QueueCard card={card} updateStatus={this.props.updateStatus} deleteCard={this.props.deleteCard}/>
                     })}
             </div>
         )

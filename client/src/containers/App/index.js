@@ -7,13 +7,8 @@ import {requestHelper} from '../../lib/modules';
 import logo from '../../logo.svg';
 import './styles.css';
 
-import {addCard} from '../actions';
-import {updateStatus} from '../actions';
-console.log(updateStatus)
+import {addCard, updateStatus, deleteCard} from '../actions';
 import {connect} from 'react-redux';
-// import {createStore} from 'redux';
-// import cards from '../reducers';
-// let store = createStore(cards);
 
 class App extends Component {
 
@@ -38,32 +33,32 @@ class App extends Component {
     updateStatus = (endPoint) => {
         requestHelper('PUT', endPoint)
         .then(card => {
-            this.props.onUpdateStatus(card.id, card.status)
-        })
-    }
+            this.props.onUpdateStatus(card.id, card.status);
+        });
+    };
 
     deleteCard = (endPoint) => {
         requestHelper('DELETE', endPoint)
         .then(card => {
-            this.props.onDeleteCard(card.id)
-        })
-    }
+            this.props.onDeleteCard(card.id);
+        });
+    };
 
     filterQueue = () => {
         return this.props.cards.filter(card => {
             return card.status === 'queue';
         })
-    }
+    };
 
     filterProgress = () => {
         return this.props.cards.filter(card => {
-            return card.status === 'in-progress'
+            return card.status === 'in-progress';
         })
     }
 
     filterDone = () => {
         return this.props.cards.filter(card => {
-            return card.status === 'done'
+            return card.status === 'done';
         })
     }
 
@@ -76,7 +71,7 @@ class App extends Component {
         </div>
         <CreateCardForm onAddCard={this.props.onAddCard}/>
         <div className="component-container">
-          <QueueDisplay className="queue-display" cards={this.filterQueue()} updateStatus={this.updateStatus}/>
+          <QueueDisplay className="queue-display" cards={this.filterQueue()} updateStatus={this.updateStatus} deleteCard={this.deleteCard}/>
           <ProgressDisplay className="progress-display" cards={this.filterProgress()} updateStatus={this.updateStatus}/>
           <DoneDisplay className="done-display" cards={this.filterDone()} updateStatus={this.updateStatus}/>
         </div>
@@ -98,6 +93,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdateStatus: (id, status) => {
             dispatch(updateStatus(id, status));
+        },
+        onDeleteCard: (id) => {
+            dispatch(deleteCard(id));
         }
     }
 }

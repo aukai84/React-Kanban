@@ -13,6 +13,10 @@ class QueueCard extends Component {
         this.props.updateStatus(`http://localhost:9000/api/kanban/done/${this.props.card.id}`);
     }
 
+    deleteTask = () => {
+        this.props.deleteCard(`http://localhost:9000/api/kanban/delete/${this.props.card.id}`)
+    }
+
     render(){
         return (
             <div className="queue-cards">

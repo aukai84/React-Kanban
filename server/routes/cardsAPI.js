@@ -58,7 +58,7 @@ router.delete('/delete/:id', (req, res) => {
             id: req.params.id
         }
     })
-    .then(result => {res.json({"message": "deleted card"})})
+    .then(result => {res.json({id: parseInt(req.params.id)})})
     .catch(error => {res.json({"error": "error message"})})
 })
 

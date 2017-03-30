@@ -1,5 +1,4 @@
-import {ADD_CARD, UPDATE_STATUS} from '../actions';
-console.log(UPDATE_STATUS)
+import {ADD_CARD, UPDATE_STATUS, DELETE_CARD} from '../actions';
 
 const initialState = {
     cards: []
@@ -23,8 +22,6 @@ function cards(state = initialState, action) {
             });
         case UPDATE_STATUS:
             let newCards = state.cards.map(card => {
-                console.log(card)
-                console.log(action)
                 if(card.id === action.id){
                     card.status = action.status;
                     return card;
@@ -32,12 +29,20 @@ function cards(state = initialState, action) {
                     return card;
                 }
             })
-            console.log(newCards)
             return Object.assign({}, state, {
                 cards: [
                     ...newCards
                 ]
+            });
+        case DELETE_CARD:
+            let updatedCards = state.cards.filter(card => {
+                return card.id != action.id
             })
+            return Object.assign({}, state, {
+                cards: [
+                    ...updatedCards
+                ]
+            });
             default:
                 return state;
     }
