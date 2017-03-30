@@ -42,6 +42,31 @@ class App extends Component {
         })
     }
 
+    deleteCard = (endPoint) => {
+        requestHelper('DELETE', endPoint)
+        .then(card => {
+            this.props.onDeleteCard(card.id)
+        })
+    }
+
+    filterQueue = () => {
+        return this.props.cards.filter(card => {
+            return card.status === 'queue';
+        })
+    }
+
+    filterProgress = () => {
+        return this.props.cards.filter(card => {
+            return card.status === 'in-progress'
+        })
+    }
+
+    filterDone = () => {
+        return this.props.cards.filter(card => {
+            return card.status === 'done'
+        })
+    }
+
 
   render() {
     return (
@@ -51,9 +76,9 @@ class App extends Component {
         </div>
         <CreateCardForm onAddCard={this.props.onAddCard}/>
         <div className="component-container">
-          <QueueDisplay className="queue-display" cards={this.props.cards.filter(card=>{return card.status === 'queue'})} updateStatus={this.updateStatus}/>
-          <ProgressDisplay className="progress-display" cards={this.props.cards.filter(card=>{return card.status === 'in-progress'})} updateStatus={this.updateStatus}/>
-          <DoneDisplay className="done-display" cards={this.props.cards.filter(card=>{return card.status === "done"})} updateStatus={this.updateStatus}/>
+          <QueueDisplay className="queue-display" cards={this.filterQueue()} updateStatus={this.updateStatus}/>
+          <ProgressDisplay className="progress-display" cards={this.filterProgress()} updateStatus={this.updateStatus}/>
+          <DoneDisplay className="done-display" cards={this.filterDone()} updateStatus={this.updateStatus}/>
         </div>
       </div>
     );

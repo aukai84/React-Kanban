@@ -22,6 +22,7 @@ class QueueCard extends Component {
                 <p>Assigned To:: {this.props.card.assigned_to}</p>
                 <button onClick={this.changeToProgress}>change to progress</button>
                 <button onClick={this.changeToDone}>change to done</button>
+                <button onClick={this.deleteTask}>DELETE</button>
             </div>
         )
     }
