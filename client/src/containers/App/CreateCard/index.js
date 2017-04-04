@@ -57,7 +57,7 @@ class CreateCardForm extends Component {
                 <input type="text" name="priority" placeholder="priority..." onChange={this.priorityChange}/>
                 <input type="text" name="created_by" placeholder="created by..." onChange={this.createdChange}/>
                 <input type="text" name="assigned_to" placeholder="assigned to..." onChange={this.assignedChange}/>
-                <input type="submit" value="create"/>
+                <input type="submit" value="Create Task"/>
             </form>
         )
     }

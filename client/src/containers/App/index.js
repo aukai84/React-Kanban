@@ -7,7 +7,7 @@ import {requestHelper} from '../../lib/modules';
 import logo from '../../logo.svg';
 import './styles.css';
 
-import {addCard, updateStatus, deleteCard} from '../actions';
+import {addCard, updateStatus, deleteCard} from '../../actions';
 import {connect} from 'react-redux';
 
 class App extends Component {
@@ -68,6 +68,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <h1>REACT KANBAN</h1>
         </div>
         <CreateCardForm onAddCard={this.props.onAddCard}/>
         <div className="component-container">

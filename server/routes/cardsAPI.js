@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 router.get('/all', (req, res) => {
     Card.findAll()
-    .then(cards => {res.json(cards)})
+    .then(cards => {console.log(cards);res.json(cards)})
     .catch(error => {res.json({"error": "error message"})})
 })
 
